@@ -1,0 +1,3 @@
+No borré la clase Tablero del repositorio, solo puse la carpeta del proyecto completa, todas las clases estan ahi incluida la clase Tablero, es para hacerlo mas sencillo de editar.
+Si tiene la aplicacion de escritorio de github puede crear una copia del repositorio que hace que uds pueda actualizar o descargar cambios directamente, si es muy complicado de entender me avisa y lo explico por discord.
+ATT: Hassel Florez
