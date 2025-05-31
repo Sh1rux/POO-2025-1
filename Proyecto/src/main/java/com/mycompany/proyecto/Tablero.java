@@ -1,3 +1,5 @@
+package com.mycompany.proyecto;
+
 public class Tablero {
     private char[][] cuadrilla; 
     private final int TAMANO = 3; 
@@ -98,3 +100,4 @@ public class Tablero {
     //fila: int, columna: int: Toma dos parámetros enteros, fila y columna.
     //: char: Devuelve el carácter ('X', 'O', o ' ') presente en la celda especificada.
     
+
