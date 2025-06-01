@@ -4,8 +4,8 @@ import java.util.Random;
 public class ComputadorM extends Jugador{
     private int fila = 0;
     private int columna = 0;
-    public ComputadorM (char simbolo){
-        super("BotMedio",simbolo);
+    public ComputadorM (char C){
+        super("BotMedio",'X');
     }
     private boolean posibleVictoria(Tablero tablero){
         char s;
@@ -88,3 +88,8 @@ public class ComputadorM extends Jugador{
         }
     }
 }
+ /*Metodos
+posibleVictoria(recibe el tablero y analiza si el enemigo tiene opciones de ganar para colocar un simbolo y evitarlo
+hacerMovimiento(recibe el tablero): ejecuta la funcion posibleVictoria para evitar una derrota
+en caso de no tener posibles derrotas ejecuta un movimiento al azar.
+*/

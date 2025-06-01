@@ -17,3 +17,7 @@ public class ComputadorF extends Jugador{
         return true;
     }
 }
+/*Metodos
+Constructor, solo recibe un simbolo y genera un usuario llamado bot facil
+hacerMovimiento(recibe el tablero):genera un movimiento totalmente al azar y coloca su simbolo en esa ubicacion
+*/
