@@ -19,6 +19,9 @@ public class Jugador {
     public int getVictorias(){
         return victorias;
     }
+    public void setVictorias(int N){
+        victorias=N;
+    }
     public boolean hacerMovimiento(Tablero tablero, int fila, int columna){
         if(tablero.esCeldaVacia(fila, columna)){
             tablero.colocarMovimiento(fila, columna, simbolo);
@@ -29,3 +32,10 @@ public class Jugador {
         }
     }
 }
+
+/*Metodos
+Todos los get devuelven el valor solicitado y todos son publicos
+setVictorias metodo para cambiar el numero de victorias (es publico pero usar solo para agregar una victoria cuando sea necesario)
+hacerMovimiento (recibe el tablero y la posicion deseada por el jugador): retorna un booleano positivo si el movimiento fue posible de ejecutar
+negativo si no era un movimiento legal
+*/
