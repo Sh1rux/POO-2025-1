@@ -3,7 +3,7 @@ package com.mycompany.proyecto;
 public class Jugador {
     private String nombre;
     private int victorias;
-    private char simbolo;
+    protected char simbolo;
     
     public Jugador(String nombre, char simbolo){
         this.nombre=nombre;
@@ -19,10 +19,13 @@ public class Jugador {
     public int getVictorias(){
         return victorias;
     }
-    public boolean hacerMovimiento(int fila, int columna){
-        //Agregar tablero a los pedidos
-        //if esCeldaVacia
-        //true:colocarMovimiento y return true
-        return true;
+    public boolean hacerMovimiento(Tablero tablero, int fila, int columna){
+        if(tablero.esCeldaVacia(fila, columna)){
+            tablero.colocarMovimiento(fila, columna, simbolo);
+            return true;
+        }else{
+            System.out.println("¡Error interno del tablero! La celda ya está ocupada o las coordenadas son inválidas.");
+            return false;
+        }
     }
 }
