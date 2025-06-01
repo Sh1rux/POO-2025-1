@@ -5,13 +5,15 @@ public class ComputadorF extends Jugador{
     public ComputadorF (char simbolo){
         super("BotFacil",simbolo);
     }
-    public boolean hacerMovimiento(){
-        //pedir tablero
+    public boolean hacerMovimiento(Tablero tablero){
         Random rand = new Random();
-        //while esCeldaVacia==false
         int fila = rand.nextInt(3);
         int columna = rand.nextInt(3);
-        //colocarMovimiento(fila, columna) y return true
+        while (tablero.esCeldaVacia(fila, columna)== false){
+            fila = rand.nextInt(3);
+            columna = rand.nextInt(3);
+        }
+        tablero.colocarMovimiento(fila, columna, simbolo);
         return true;
     }
 }
