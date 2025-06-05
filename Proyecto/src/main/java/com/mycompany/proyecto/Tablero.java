@@ -34,7 +34,6 @@ public class Tablero {
     public boolean esCeldaVacia(int fila, int columna) {
         // Primero toca validar que las coordenadas estén dentro de los límites
         if (fila < 0 || fila >= TAMANO || columna < 0 || columna >= TAMANO) {
-            System.out.println("Error: Las coordenadas están fuera del tablero. Intenta de 0 a " + (TAMANO - 1) + ".");
             return false; // Coordenadas fuera de rango no están "vacías"
         }
         return cuadrilla[fila][columna] == ' '; // Retorna true si la celda está vacía
