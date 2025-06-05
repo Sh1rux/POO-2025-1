@@ -5,7 +5,7 @@ public class ComputadorM extends Jugador{
     private int fila = 0;
     private int columna = 0;
     public ComputadorM (char C){
-        super("BotMedio",'X');
+        super("BotMedio",C);
     }
     private boolean posibleVictoria(Tablero tablero){
         char s;
@@ -70,7 +70,8 @@ public class ComputadorM extends Jugador{
             return false;
         }
     }
-    public boolean hacerMovimiento(Tablero tablero){
+    @Override
+    public boolean hacerMovimiento(Tablero tablero, int a, int b){
         //pedir tablero
         if (posibleVictoria(tablero)){
             tablero.colocarMovimiento(fila, columna, simbolo);

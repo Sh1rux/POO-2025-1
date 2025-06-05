@@ -5,7 +5,8 @@ public class ComputadorF extends Jugador{
     public ComputadorF (char simbolo){
         super("BotFacil",simbolo);
     }
-    public boolean hacerMovimiento(Tablero tablero){
+    @Override
+    public boolean hacerMovimiento(Tablero tablero,int a, int b){
         Random rand = new Random();
         int fila = rand.nextInt(3);
         int columna = rand.nextInt(3);

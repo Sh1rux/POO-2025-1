@@ -13,6 +13,9 @@ public class Jugador {
     public String getNombre(){
         return nombre;
     }
+    public void setNombre(String Nombre){
+        nombre=Nombre;
+    }
     public char getSimbolo(){
         return simbolo;
     }
