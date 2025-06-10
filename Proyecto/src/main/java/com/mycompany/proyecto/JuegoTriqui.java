@@ -7,17 +7,17 @@ public class JuegoTriqui {
     Scanner input = new Scanner(System.in);
     private Tablero tablero;
     private Jugador jugador1;
-    private Jugador jugador2;                       //definir los atributos de clase
+    private Jugador jugador2;
     private Jugador jugadorActual;
     private int empates;
     private boolean juegoTerminado;
-    private String ModoJuego;   //NUEVO, servirá posteriormente para saber cuantos jugadores registrar y para registrar compuF o compuM
+    private String ModoJuego;
 
     public JuegoTriqui(){
         this.tablero = new Tablero();
         this.jugador1 = new Jugador("jugador1", 'X');
         this.jugador2 = new Jugador("jugador2", 'O');
-        this.jugadorActual = jugador1;        //constructor vacío por convnción
+        this.jugadorActual = jugador1;
         this.empates = 0;
         this.juegoTerminado = false;
         this.ModoJuego = " ";
@@ -33,7 +33,7 @@ public class JuegoTriqui {
         }
     }
 
-    public void tipoJuego(){           //Definición de Tipo de Juego (incompleto)
+    public void tipoJuego(){
         System.out.println("Seleccione el tipo de juego:");
         System.out.println("1. Contra otro jugador");
         System.out.println("2. Contra la computadora");
@@ -58,10 +58,10 @@ public class JuegoTriqui {
         else if(opcion == 1){
             this.ModoJuego = "Dos Jugadores";
         }
-        else{System.out.println("Opción no válida");}
+        else{System.out.println("Opción no valida");}
     }
-    public void registrarJugador(){             // registra jugador1 o jugador2
-        if (ModoJuego == "Dos Jugadores"){
+    public void registrarJugador(){
+        if ("Dos Jugadores".equals(ModoJuego)){
             System.out.println("Ingrese el nombre del jugador 1");
             String nombre = input.next();
             jugador1.setNombre(nombre);
@@ -77,7 +77,7 @@ public class JuegoTriqui {
     public boolean hayGanador(){
                 // Verificar filas y columnas
         char simbolo = jugadorActual.getSimbolo();
-        for (int i = 0; i < 3; i++) {            
+        for (int i = 0; i < 3; i++) {
             if (tablero.getCelda(i,0) == simbolo && tablero.getCelda(i,1) == simbolo && tablero.getCelda(i,2) == simbolo) {
                 return true;
             }
@@ -92,54 +92,71 @@ public class JuegoTriqui {
             return true;
         }else{
             return false;
-        }    
+        }
     }
     public void iniciarJuego(){
-        String r = "";
-        String respuesta = "Si";
+        String r = ""; // Variable para la respuesta "ver marcador"
+        String respuestaJugarOtra = "Si"; 
         int fila = 3;
         int columna = 3;
-        while(this.juegoTerminado==false){
+        while(!this.juegoTerminado){
             tablero.inicializarTablero();
-            fila = 3;
-            columna = 3;
-            while (tablero.estaLleno()== false){
+            // Restablecer fila y columna a valores "inválidos" para asegurar que el bucle de validación se ejecute la primera vez
+            fila = -1;
+            columna = -1;
+
+            while (!tablero.estaLleno()){
                 tablero.imprimirTablero();
                 System.out.println("Turno de:  "+ jugadorActual.getNombre());
-                if ("BotMedio".equals(jugadorActual.getNombre())== false && "BotFacil".equals(jugadorActual.getNombre())== false){
-                    while (tablero.esCeldaVacia(fila, columna)==false){
-                        System.out.println("Ingresa la fila:");
+
+                boolean esComputadora = ("ComputadorF".equals(ModoJuego) || "ComputadorM".equals(ModoJuego));
+
+                if (!esComputadora || !jugadorActual.getNombre().startsWith("Bot")) {
+                    while (!tablero.esCeldaVacia(fila, columna)){
+                        System.out.println("Ingresa la fila (0,1,2):");
                         fila = input.nextInt();
-                        System.out.println("Ingresa la columna:");
+                        System.out.println("Ingresa la columna (0,1,2):");
                         columna = input.nextInt();
-                        if (tablero.esCeldaVacia(fila, columna)==false)
-                            System.out.println("Error. Seleccione otra casilla");
+                        if (!tablero.esCeldaVacia(fila, columna))
+                            System.out.println("Error. Seleccione otra casilla o coordenadas validas.");
                     }
                 }
-                jugadorActual.hacerMovimiento(tablero,fila, columna);
-                if (hayGanador() == true){
-                    System.out.println(jugadorActual.getNombre()+"es el ganador!!");
+
+                jugadorActual.hacerMovimiento(tablero, fila, columna);
+
+                if (hayGanador()){
+                    System.out.println(jugadorActual.getNombre()+" es el ganador!!");
                     jugadorActual.setVictorias(jugadorActual.getVictorias()+1);
                     tablero.imprimirTablero();
                     break;
                 }
-                actualizarJugador();
-                if (tablero.estaLleno())
+
+                if (!tablero.estaLleno() && !hayGanador()) {
+                    actualizarJugador();
+                }
+
+                if (tablero.estaLleno() && !hayGanador()){
                     this.empates++;
+                    System.out.println("¡El juego ha terminado en empate!");
+                    tablero.imprimirTablero();
+                    break;
+                }
             }
-            System.out.println("¿Desea ver el marcador actual? (Si, No)");
+            
+            System.out.println("Desea ver el marcador actual? (Si, No)");
             r = input.next();
-            if ("Si".equals(respuesta)){
+            if ("Si".equalsIgnoreCase(r)){
                 System.out.println("Victorias totales");
                 System.out.println(jugador1.getNombre()+": " +jugador1.getVictorias());
                 System.out.println(jugador2.getNombre()+": " +jugador2.getVictorias());
                 System.out.println("Empates: " + empates);
             }
-            System.out.println("¿Desea jugar otra partida? (Si, No)");
-            respuesta = input.next();
-            if ("No".equals(respuesta))
+
+            System.out.println("Desea jugar otra partida? (Si, No)");
+            respuestaJugarOtra = input.next(); 
+            if ("No".equalsIgnoreCase(respuestaJugarOtra)) 
                 juegoTerminado= true;
         }
-        System.out.println("Gracias por jugar");
+        System.out.println("Gracias por jugar!");
     }
 }
